@@ -1,6 +1,7 @@
 {
-  "name": "webpack-template",
+  "name": "to-do-em",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,16 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/flodardev/webpack-template.git"
+    "url": "git+https://github.com/flodardev/to-do-list-app"
   },
   "keywords": [],
-  "author": "",
+  "author": "flodardev",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/flodardev/webpack-template/issues"
+    "url": "https://github.com/flodardev/to-do-list-app/issues"
   },
-  "homepage": "https://github.com/flodardev/webpack-template#readme",
+  "homepage": "https://github.com/flodardev/to-do-list-app#readme",
   "devDependencies": {
     "css-loader": "^7.1.4",
     "html-loader": "^5.1.0",
