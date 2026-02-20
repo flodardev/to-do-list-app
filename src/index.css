@@ -1,6 +1,13 @@
+* {
+  font-family: "Funnel Sans";
+}
+
 .app-container {
   border: 1px solid black;
 
+  height: 100dvh;
+
   display: grid;
   grid-template-columns: 1fr 4fr;
+  grid-template-rows: 4fr max-content;
 }
