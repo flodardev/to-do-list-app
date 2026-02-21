@@ -8,7 +8,7 @@
   display: grid;
   justify-items: center;
   align-items: center;
-  grid-template-rows: max-content max-content 1fr;
+  grid-template-rows: max-content max-content 1fr 1fr;
 }
 
 .header {
@@ -17,4 +17,13 @@
   align-items: center;
   align-self: center;
   gap: 1rem;
+}
+
+.space-selection {
+  width: 150px;
+}
+
+.space-item {
+  border: none;
+  background-color: var(--sidebar-bg-color);
 }

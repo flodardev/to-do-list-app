@@ -3,7 +3,6 @@ import "./modern-css-reset.css";
 import "./index.css";
 import { sideBar } from "./components/sidebar.js";
 import { home } from "./pages/home.js";
-import { addTask } from "./components/taskcard.js";
 
 const mainContainer = document.querySelector(".main");
 

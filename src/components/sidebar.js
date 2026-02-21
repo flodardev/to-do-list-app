@@ -4,7 +4,7 @@ import logoPNG from "../images/logo/logo.png";
 
 const sideBar = () => {
   const sideBarContainer = document.querySelector(".side-bar");
-  sideBarContainer.append(header(), addSpaceBtn());
+  sideBarContainer.append(header(), addSpaceBtn(), spaceList());
 };
 
 const header = () => {
@@ -31,6 +31,41 @@ const addSpaceBtn = () => {
   addSpaceBtn.addEventListener("click", () => {
     console.log("I got clicked");
     // add a new space
+    spaceList();
   });
   return addSpaceBtn;
+};
+
+const spaceList = () => {
+  // data for spaces
+  const spacesArray = [
+    { name: "space 1" },
+    { name: "space 2" },
+    { name: "space 3" },
+    { name: "space 4" },
+    { name: "space 5" },
+  ];
+
+  const spaceSelections = document.createElement("select");
+  spaceSelections.classList.add("space-selection");
+  spaceSelections.id = "spaces";
+  spaceSelections.name = "spaces";
+  spaceSelections.addEventListener("change", (event) => {
+    console.log(event.target.value);
+  });
+
+  // for each space create a list item
+  spacesArray.forEach((item) => {
+    const listItem = document.createElement("option");
+    listItem.classList.add("space-item");
+    listItem.textContent = item.name;
+    listItem.value = item.name;
+
+    spaceSelections.append(listItem);
+  });
+
+  const div = document.createElement("div");
+  div.classList.add("class-list");
+  div.append(spaceSelections);
+  return div;
 };
