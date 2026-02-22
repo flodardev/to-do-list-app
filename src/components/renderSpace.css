@@ -1,0 +1,8 @@
+.card {
+  border: 1px solid black;
+}
+
+.todo-item {
+  background-color: aqua;
+  border: 1px solid black;
+}
