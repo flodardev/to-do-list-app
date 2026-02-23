@@ -15,9 +15,14 @@ const renderItem = (itemObject) => {
   priorityItem.classList.add("priority");
   priorityItem.textContent = itemObject.priority;
 
+  const deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("item-remove");
+  deleteBtn.textContent = "Remove";
+  deleteBtn.dataset.itemId = itemObject.itemID;
+
   const divItem = document.createElement("div");
   divItem.classList.add("todo-item");
-  divItem.append(titleItem, paraItem, dateItem, priorityItem);
+  divItem.append(titleItem, paraItem, dateItem, priorityItem, deleteBtn);
 
   return divItem;
 };
@@ -34,6 +39,7 @@ const renderCard = (cardObject) => {
 
   const divCard = document.createElement("div");
   divCard.classList.add("card");
+  divCard.dataset.cardId = cardObject.cardID;
   divCard.append(titleCard, cards);
 
   // Listener moved to the scrollable container
@@ -70,7 +76,12 @@ const renderSpace = (spaceObject) => {
 
   const divSpace = document.createElement("div");
   divSpace.classList.add("space");
+  divSpace.dataset.spaceId = spaceObject.spaceID;
   divSpace.append(titleSpace, containerCards);
 
   return divSpace;
+};
+
+const updateCard = (cardObject) => {
+  // update card
 };

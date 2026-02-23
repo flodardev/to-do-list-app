@@ -10,7 +10,7 @@ const home = () => {
   const spaces = userSpaces;
   const array = spaces.spacesArray;
 
-  console.log(array[0]);
+  // console.log(array[0]);
 
   homeWrapper.append(renderSpace(array[0]));
 
