@@ -1,5 +1,6 @@
 import "./renderSpace.css";
-export { renderSpace };
+import { getCards } from "./deleteFunctions.js";
+export { renderSpace, updateCard };
 
 const renderItem = (itemObject) => {
   const titleItem = document.createElement("h3");
@@ -82,6 +83,10 @@ const renderSpace = (spaceObject) => {
   return divSpace;
 };
 
-const updateCard = (cardObject) => {
-  // update card
+const updateCard = (spaceID, cardID) => {
+  // update DOM
+  const cardsContainer = document.querySelector(".cards-container");
+  const divCard = cardsContainer.querySelector(`[data-card-id="${cardID}"]`);
+  const updatedCard = getCards(spaceID, cardID);
+  divCard.replaceWith(renderCard(updatedCard));
 };

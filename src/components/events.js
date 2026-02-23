@@ -1,5 +1,6 @@
 export { events };
-import { deleteItem } from "./deleteFunctions.js";
+import { deleteItem, getSpace } from "./deleteFunctions.js";
+import { renderSpace, updateCard } from "./renderSpace.js";
 import { home } from "../pages/home.js";
 
 const events = () => {
@@ -23,9 +24,15 @@ const deleteEvents = (space) => {
       const cards = event.target.closest(".card");
       const cardId = cards.dataset.cardId;
 
-      // delete item with item id
+      // get item id
       const itemId = event.target.dataset.itemId;
-      deleteItem(spaceId, cardId, itemId);
+
+      if ((spaceId, cardId, itemId)) {
+        if (deleteItem(spaceId, cardId, itemId)) {
+          // update DOM
+          updateCard(spaceId, cardId);
+        }
+      }
     }
   });
 
