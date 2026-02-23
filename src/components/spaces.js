@@ -1,4 +1,4 @@
-import { userSpaces } from "./spacesdata.js";
+import { userSpaces } from "./data.js";
 export { spaces, addSpaceBtn, spaceList };
 
 const spaces = () => {

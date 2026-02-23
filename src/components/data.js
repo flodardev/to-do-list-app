@@ -1,46 +1,5 @@
-export { Space, SpaceCard, SpaceCardItem, Spaces, userSpaces };
-
-class Spaces {
-  constructor(title) {
-    this.spacesTitle = title;
-    this.spacesArray = [];
-  }
-
-  addSpace = (space) => {
-    this.spacesArray.push(space);
-  };
-}
-
-class Space {
-  constructor(title) {
-    this.spaceTitle = title;
-    this.cardArray = [];
-  }
-
-  addCard = (card) => {
-    this.cardArray.push(card);
-  };
-}
-
-class SpaceCard {
-  constructor(title) {
-    this.cardTitle = title;
-    this.itemArray = [];
-  }
-
-  addItem = (item) => {
-    this.itemArray.push(item);
-  };
-}
-
-class SpaceCardItem {
-  constructor(title, description, dueDate, priority) {
-    this.title = title;
-    this.description = description;
-    this.dueDate = dueDate;
-    this.priority = priority;
-  }
-}
+import { Space, SpaceCard, SpaceCardItem, Spaces } from "./spacesClasses.js";
+export { userSpaces };
 
 const userSpaces = new Spaces("user");
 const personal = new Space("Personal");

@@ -1,6 +1,6 @@
 import "./home.css";
 import { renderSpace } from "../components/renderSpace.js";
-import { userSpaces } from "../components/spacesdata.js";
+import { userSpaces } from "../components/data.js";
 export { home };
 
 const home = () => {
