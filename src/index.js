@@ -4,10 +4,11 @@ import "./index.css";
 import { sideBar } from "./components/sidebar.js";
 import { home } from "./pages/home.js";
 import { events } from "./components/events.js";
+import { addItemModal, addCardModal } from "./components/modal.js";
 
 const mainContainer = document.querySelector(".main");
 
 // Default page
-mainContainer.append(home());
+mainContainer.append(home(), addItemModal(), addCardModal());
 sideBar();
 events();

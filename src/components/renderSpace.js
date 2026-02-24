@@ -1,6 +1,7 @@
 import "./renderSpace.css";
-import { getCards } from "./deleteFunctions.js";
-export { renderSpace, updateCard };
+import { getCards, getSpace } from "./getterFunctions.js";
+import { events } from "./events.js";
+export { renderSpace, updateCard, updateSpace };
 
 const renderItem = (itemObject) => {
   const titleItem = document.createElement("h3");
@@ -38,10 +39,15 @@ const renderCard = (cardObject) => {
     cards.append(renderItem(item));
   });
 
+  // add to-do item button
+  const addButton = document.createElement("button");
+  addButton.classList.add("item-add");
+  addButton.textContent = "Add Task";
+
   const divCard = document.createElement("div");
   divCard.classList.add("card");
   divCard.dataset.cardId = cardObject.cardID;
-  divCard.append(titleCard, cards);
+  divCard.append(titleCard, addButton, cards);
 
   // Listener moved to the scrollable container
   cards.addEventListener("wheel", (event) => {
@@ -59,8 +65,16 @@ const renderCard = (cardObject) => {
 };
 
 const renderSpace = (spaceObject) => {
+  const titleDiv = document.createElement("div");
+  titleDiv.classList.add("title-space");
   const titleSpace = document.createElement("h1");
   titleSpace.textContent = spaceObject.spaceTitle;
+
+  const addCardButton = document.createElement("button");
+  addCardButton.classList.add("card-add");
+  addCardButton.textContent = "Add Card";
+
+  titleDiv.append(titleSpace, addCardButton);
 
   const containerCards = document.createElement("div");
   containerCards.classList.add("cards-container");
@@ -78,7 +92,7 @@ const renderSpace = (spaceObject) => {
   const divSpace = document.createElement("div");
   divSpace.classList.add("space");
   divSpace.dataset.spaceId = spaceObject.spaceID;
-  divSpace.append(titleSpace, containerCards);
+  divSpace.append(titleDiv, containerCards);
 
   return divSpace;
 };
@@ -89,4 +103,14 @@ const updateCard = (spaceID, cardID) => {
   const divCard = cardsContainer.querySelector(`[data-card-id="${cardID}"]`);
   const updatedCard = getCards(spaceID, cardID);
   divCard.replaceWith(renderCard(updatedCard));
+};
+
+const updateSpace = (spaceID) => {
+  // update space DOM
+  const divSpace = document.querySelector(`[data-space-id="${spaceID}"]`);
+  const updatedSpaceObj = getSpace(spaceID);
+  console.log(updatedSpaceObj);
+  divSpace.replaceWith(renderSpace(updatedSpaceObj));
+  // refresh event listeners
+  events();
 };
