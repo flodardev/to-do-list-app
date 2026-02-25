@@ -1,6 +1,6 @@
 export { events };
 import { addItem, addCard } from "./addFunctions.js";
-import { setStatus } from "./setterFunctions.js";
+import { setStatus, setPriority } from "./setterFunctions.js";
 import { deleteItem, deleteCard } from "./deleteFunctions.js";
 import { updateCard, updateSpace } from "./renderSpace.js";
 
@@ -11,6 +11,7 @@ const events = () => {
   addCardEvent(space);
   addItemEvent(space);
   markItemCompleteEvent(space);
+  changePriorityEvent(space);
 };
 
 const addCardEvent = (space) => {
@@ -96,7 +97,7 @@ const deleteEvents = (space) => {
 };
 
 const markItemCompleteEvent = (space) => {
-  space.addEventListener("click", async (event) => {
+  space.addEventListener("click", (event) => {
     if (event.target.matches(".mark-complete-btn")) {
       // get space id
       const space = event.target.closest(".space");
@@ -112,6 +113,33 @@ const markItemCompleteEvent = (space) => {
       if ((spaceId, cardId, itemId)) {
         // change item status
         setStatus(spaceId, cardId, itemId);
+        updateCard(spaceId, cardId);
+      }
+    }
+  });
+};
+
+const changePriorityEvent = (space) => {
+  space.addEventListener("change", (event) => {
+    if (event.target.matches(".change-prio-select")) {
+      console.log("triggered");
+      // get space id
+      const space = event.target.closest(".space");
+      const spaceId = space.dataset.spaceId;
+
+      // get cards id
+      const cards = event.target.closest(".card");
+      const cardId = cards.dataset.cardId;
+
+      // get item id
+      const itemId = event.target.closest(".item-buttons").dataset.itemId;
+
+      // get value
+      const value = event.target.value;
+
+      if ((spaceId, cardId, itemId, value)) {
+        // change item priority
+        setPriority(spaceId, cardId, itemId, value);
         updateCard(spaceId, cardId);
       }
     }

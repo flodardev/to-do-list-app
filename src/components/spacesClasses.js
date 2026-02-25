@@ -124,7 +124,7 @@ class SpaceCardItem {
 
   changePriority = (value) => {
     if (value >= 1 && value <= 3) {
-      this.priority = value;
+      this.priority = +value;
     } else {
       console.error("Error in changing priority");
     }

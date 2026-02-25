@@ -43,15 +43,37 @@ const renderItem = (itemObject) => {
   markCompleteBtn.classList.add("mark-complete-btn");
   markCompleteBtn.textContent = "Done";
 
-  const changePrioBtn = document.createElement("button");
-  changePrioBtn.classList.add("change-prio-btn");
-  changePrioBtn.textContent = "Prio";
+  const changePrio = document.createElement("select");
+  changePrio.name = "priority";
+  changePrio.classList.add("change-prio-select");
+  [0, 1, 2, 3].forEach((item) => {
+    const option = document.createElement("option");
+    option.value = item;
+    switch (item) {
+      case 0:
+        option.textContent = "Change priority";
+        break;
+
+      case 1:
+        option.textContent = "Low";
+        break;
+
+      case 2:
+        option.textContent = "Medium";
+        break;
+
+      case 3:
+        option.textContent = "High";
+        break;
+    }
+    changePrio.append(option);
+  });
 
   const deleteBtn = document.createElement("button");
   deleteBtn.classList.add("item-remove");
   deleteBtn.textContent = "Remove";
 
-  buttons.append(markCompleteBtn, changePrioBtn, deleteBtn);
+  buttons.append(markCompleteBtn, changePrio, deleteBtn);
 
   const divItem = document.createElement("div");
   divItem.classList.add("todo-item");
