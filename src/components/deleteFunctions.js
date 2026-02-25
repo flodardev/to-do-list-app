@@ -16,7 +16,6 @@ const deleteCard = (spaceID, cardID) => {
   const space = getSpace(spaceID);
 
   if (space.removeCard(cardID)) {
-    console.log(space);
     return true;
   } else {
     console.log("Error deleting card");

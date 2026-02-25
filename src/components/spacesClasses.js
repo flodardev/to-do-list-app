@@ -7,8 +7,20 @@ class Spaces {
     this.spacesID = crypto.randomUUID();
   }
 
+  getSpace = (spaceID) => {
+    const index = this.findSpaceIndex(spaceID);
+
+    if (index !== -1) {
+      return this.spacesArray[index];
+    }
+  };
+
   addSpace = (space) => {
     this.spacesArray.push(space);
+  };
+
+  findSpaceIndex = (spaceID) => {
+    return this.spacesArray.findIndex((item) => item.spaceID === spaceID);
   };
 }
 
@@ -18,6 +30,16 @@ class Space {
     this.cardArray = [];
     this.spaceID = crypto.randomUUID();
   }
+
+  getCard = (cardID) => {
+    const index = this.findCardIndex(cardID);
+    if (index !== -1) {
+      const card = this.cardArray[index];
+      return card;
+    } else {
+      return false;
+    }
+  };
 
   addCard = (card) => {
     this.cardArray.push(card);
@@ -44,6 +66,18 @@ class SpaceCard {
     this.itemArray = [];
     this.cardID = crypto.randomUUID();
   }
+
+  getItem = (itemID) => {
+    const index = this.findItemIndex(itemID);
+    if (index !== -1) {
+      const item = this.itemArray[index];
+      // success return true
+      return item;
+    } else {
+      // fail return false // error
+      return false;
+    }
+  };
 
   addItem = (item) => {
     this.itemArray.push(item);
