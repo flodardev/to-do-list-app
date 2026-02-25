@@ -49,7 +49,21 @@ class SpaceCard {
     this.itemArray.push(item);
   };
 
-  // remove item function to be added
+  removeItem = (itemID) => {
+    const index = this.findItemIndex(itemID);
+    if (index !== -1) {
+      this.itemArray.splice(index, 1);
+      // success return true
+      return true;
+    } else {
+      // fail return false // error
+      return false;
+    }
+  };
+
+  findItemIndex = (itemID) => {
+    return this.itemArray.findIndex((item) => item.itemID === itemID);
+  };
 }
 
 class SpaceCardItem {

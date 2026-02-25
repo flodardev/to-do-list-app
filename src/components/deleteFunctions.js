@@ -1,26 +1,20 @@
 export { deleteItem, deleteCard };
-import {
-  getCard,
-  getSpace,
-  findItemIndex,
-  getCards,
-} from "./getterFunctions.js";
+import { getSpace, getCards } from "./getterFunctions.js";
 
 const deleteItem = (spaceID, cardID, itemID) => {
-  const card = getCard(spaceID, cardID);
+  const cards = getCards(spaceID, cardID);
 
-  // delete item
-  const index = findItemIndex(itemID, card);
-  if (index !== -1) {
-    card.splice(index, 1);
+  if (cards.removeItem(itemID)) {
     return true;
   } else {
+    console.log("Error deleting item");
     return false;
   }
 };
 
 const deleteCard = (spaceID, cardID) => {
   const space = getSpace(spaceID);
+
   if (space.removeCard(cardID)) {
     console.log(space);
     return true;
