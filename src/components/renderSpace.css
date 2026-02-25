@@ -38,9 +38,13 @@
   grid-template-rows: max-content 1fr;
   row-gap: 0.5rem;
 
-  .add-to-do {
-    width: 50%;
-    justify-self: end;
+  .card-btn-container {
+    display: flex;
+    gap: 0.5rem;
+
+    button {
+      width: 70px;
+    }
   }
 }
 

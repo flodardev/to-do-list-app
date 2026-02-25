@@ -22,6 +22,20 @@ class Space {
   addCard = (card) => {
     this.cardArray.push(card);
   };
+
+  removeCard = (cardID) => {
+    const index = this.findCardIndex(cardID);
+    if (index !== -1) {
+      this.cardArray.splice(index, 1);
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  findCardIndex = (cardID) => {
+    return this.cardArray.findIndex((item) => item.cardID === cardID);
+  };
 }
 
 class SpaceCard {
@@ -34,6 +48,8 @@ class SpaceCard {
   addItem = (item) => {
     this.itemArray.push(item);
   };
+
+  // remove item function to be added
 }
 
 class SpaceCardItem {

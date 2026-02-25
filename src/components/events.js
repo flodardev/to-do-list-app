@@ -1,6 +1,6 @@
 export { events };
 import { addItem, addCard } from "./addFunctions.js";
-import { deleteItem } from "./deleteFunctions.js";
+import { deleteItem, deleteCard } from "./deleteFunctions.js";
 import { updateCard, updateSpace } from "./renderSpace.js";
 
 const events = () => {
@@ -73,6 +73,22 @@ const deleteEvents = (space) => {
   });
 
   // Delete Card
+  space.addEventListener("click", (event) => {
+    if (event.target.matches(".card-del")) {
+      // get space id
+      const space = event.target.closest(".space");
+      const spaceId = space.dataset.spaceId;
+
+      // get cards id
+      const cards = event.target.closest(".card");
+      const cardId = cards.dataset.cardId;
+      if ((spaceId, cardId)) {
+        if (deleteCard(spaceId, cardId)) {
+          updateSpace(spaceId);
+        }
+      }
+    }
+  });
 
   // Delete Space
 };

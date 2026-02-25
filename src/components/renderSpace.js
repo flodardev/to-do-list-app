@@ -39,15 +39,26 @@ const renderCard = (cardObject) => {
     cards.append(renderItem(item));
   });
 
+  // Buttons
+
   // add to-do item button
   const addButton = document.createElement("button");
   addButton.classList.add("item-add");
   addButton.textContent = "Add Task";
 
+  // delete card button
+  const delCardBtn = document.createElement("button");
+  delCardBtn.classList.add("card-del");
+  delCardBtn.textContent = "Del Card";
+
+  const buttons = document.createElement("div");
+  buttons.classList.add("card-btn-container");
+  buttons.append(addButton, delCardBtn);
+
   const divCard = document.createElement("div");
   divCard.classList.add("card");
   divCard.dataset.cardId = cardObject.cardID;
-  divCard.append(titleCard, addButton, cards);
+  divCard.append(titleCard, buttons, cards);
 
   // Listener moved to the scrollable container
   cards.addEventListener("wheel", (event) => {
@@ -109,7 +120,6 @@ const updateSpace = (spaceID) => {
   // update space DOM
   const divSpace = document.querySelector(`[data-space-id="${spaceID}"]`);
   const updatedSpaceObj = getSpace(spaceID);
-  console.log(updatedSpaceObj);
   divSpace.replaceWith(renderSpace(updatedSpaceObj));
   // refresh event listeners
   events();
