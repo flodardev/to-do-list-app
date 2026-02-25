@@ -37,17 +37,19 @@ const renderItem = (itemObject) => {
   // buttons
   const buttons = document.createElement("div");
   buttons.classList.add("item-buttons");
+  buttons.dataset.itemId = itemObject.itemID;
 
   const markCompleteBtn = document.createElement("button");
+  markCompleteBtn.classList.add("mark-complete-btn");
   markCompleteBtn.textContent = "Done";
 
   const changePrioBtn = document.createElement("button");
+  changePrioBtn.classList.add("change-prio-btn");
   changePrioBtn.textContent = "Prio";
 
   const deleteBtn = document.createElement("button");
   deleteBtn.classList.add("item-remove");
   deleteBtn.textContent = "Remove";
-  deleteBtn.dataset.itemId = itemObject.itemID;
 
   buttons.append(markCompleteBtn, changePrioBtn, deleteBtn);
 
