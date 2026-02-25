@@ -81,6 +81,7 @@ class SpaceCard {
 
   addItem = (item) => {
     this.itemArray.push(item);
+    this.sortItems(true);
   };
 
   removeItem = (itemID) => {
@@ -98,6 +99,13 @@ class SpaceCard {
   findItemIndex = (itemID) => {
     return this.itemArray.findIndex((item) => item.itemID === itemID);
   };
+
+  // Sort logic: (b - a) results in 3, 2, 1 order
+  sortItems = (highToLow = true) => {
+    this.itemArray.sort((a, b) =>
+      highToLow ? b.priority - a.priority : a.priority - b.priority,
+    );
+  };
 }
 
 class SpaceCardItem {
@@ -111,14 +119,14 @@ class SpaceCardItem {
   }
 
   changeStatus = () => {
-    this.status = this.status ? false : true;
+    this.status = !this.status;
   };
 
   changePriority = (value) => {
     if (value >= 1 && value <= 3) {
       this.priority = value;
     } else {
-      console.log("Error in changing priority");
+      console.error("Error in changing priority");
     }
   };
 }

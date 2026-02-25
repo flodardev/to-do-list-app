@@ -64,6 +64,7 @@ const renderCard = (cardObject) => {
 
   const cards = document.createElement("div");
   cards.classList.add("cards");
+  // sort first
   cardObject.itemArray.forEach((item) => {
     cards.append(renderItem(item));
   });
