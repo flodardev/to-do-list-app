@@ -70,4 +70,13 @@
 .todo-item {
   background-color: aqua;
   border: 1px solid black;
+
+  display: flex;
+  flex-flow: column;
+  .item-buttons {
+    align-self: end;
+    button {
+      margin-right: 0.2rem;
+    }
+  }
 }

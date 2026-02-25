@@ -4,8 +4,18 @@ import { events } from "./events.js";
 export { renderSpace, updateCard, updateSpace };
 
 const renderItem = (itemObject) => {
+  const titleDiv = document.createElement("div");
   const titleItem = document.createElement("h3");
   titleItem.textContent = itemObject.title;
+
+  const statusItem = document.createElement("span");
+  if (itemObject.status) {
+    statusItem.textContent = "Complete";
+  } else {
+    statusItem.textContent = "Incomplete";
+  }
+
+  titleDiv.append(titleItem, statusItem);
 
   const paraItem = document.createElement("p");
   paraItem.textContent = itemObject.description;
@@ -15,16 +25,35 @@ const renderItem = (itemObject) => {
 
   const priorityItem = document.createElement("span");
   priorityItem.classList.add("priority");
-  priorityItem.textContent = itemObject.priority;
+
+  if (itemObject.priority === 1) {
+    priorityItem.textContent = "Priority Low";
+  } else if (itemObject.priority === 2) {
+    priorityItem.textContent = "Priority Medium";
+  } else if (itemObject.priority === 3) {
+    priorityItem.textContent = "Priority High";
+  }
+
+  // buttons
+  const buttons = document.createElement("div");
+  buttons.classList.add("item-buttons");
+
+  const markCompleteBtn = document.createElement("button");
+  markCompleteBtn.textContent = "Done";
+
+  const changePrioBtn = document.createElement("button");
+  changePrioBtn.textContent = "Prio";
 
   const deleteBtn = document.createElement("button");
   deleteBtn.classList.add("item-remove");
   deleteBtn.textContent = "Remove";
   deleteBtn.dataset.itemId = itemObject.itemID;
 
+  buttons.append(markCompleteBtn, changePrioBtn, deleteBtn);
+
   const divItem = document.createElement("div");
   divItem.classList.add("todo-item");
-  divItem.append(titleItem, paraItem, dateItem, priorityItem, deleteBtn);
+  divItem.append(titleDiv, paraItem, dateItem, priorityItem, buttons);
 
   return divItem;
 };

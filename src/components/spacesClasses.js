@@ -105,7 +105,20 @@ class SpaceCardItem {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
-    this.priority = priority;
+    this.priority = priority; // 1 = low, 2 = medium, 3 = high
     this.itemID = crypto.randomUUID();
+    this.status = false; // task complete or incomplete
   }
+
+  changeStatus = () => {
+    this.status = this.status ? false : true;
+  };
+
+  changePriority = (value) => {
+    if (value >= 1 && value <= 3) {
+      this.priority = value;
+    } else {
+      console.log("Error in changing priority");
+    }
+  };
 }
