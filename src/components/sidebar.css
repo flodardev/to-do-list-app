@@ -34,7 +34,7 @@
   border: 1px solid black;
   place-self: start;
   justify-self: center;
-  grid-row: 4/5;
+  grid-row: 2/3;
   width: 80%;
   display: grid;
   gap: 0.5rem;

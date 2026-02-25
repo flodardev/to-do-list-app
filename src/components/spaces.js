@@ -1,5 +1,9 @@
 import { userSpaces } from "./data.js";
-export { spaces, addSpaceBtn, spaceList };
+import { addSpace } from "./addFunctions.js";
+import { renderSpace } from "./renderSpace.js";
+import { getUser } from "./getterFunctions.js";
+import { events } from "./events.js";
+export { spaces, spaceList };
 
 const spaces = () => {
   const div = document.createElement("div");
@@ -13,10 +17,11 @@ const addSpaceBtn = () => {
   const addSpaceBtn = document.createElement("button");
   addSpaceBtn.id = "add-space-btn";
   addSpaceBtn.textContent = "Add Space";
-  addSpaceBtn.addEventListener("click", () => {
-    console.log("I got clicked");
+  addSpaceBtn.addEventListener("click", async () => {
     // add a new space
-    spaceList();
+    await addSpace();
+    const classList = document.querySelector(".class-list");
+    classList.replaceWith(spaceList());
   });
   return addSpaceBtn;
 };
@@ -30,6 +35,12 @@ const spaceSelections = () => {
     // change main content
 
     console.log(event.target.value);
+
+    const user = getUser();
+    const newSpace = renderSpace(user.getSpace(event.target.value));
+    const spaceDiv = document.querySelector(".space");
+    spaceDiv.replaceWith(newSpace);
+    events();
   });
 
   return selections;
@@ -38,14 +49,12 @@ const spaceSelections = () => {
 const spaceList = () => {
   const spaceSelect = spaceSelections();
   const spaces = userSpaces;
-  const array = spaces.spacesArray;
-  //console.log(array[0].spaceTitle);
   // for each space create a list item
   spaces.spacesArray.forEach((item) => {
     const listItem = document.createElement("option");
     listItem.classList.add("space-item");
     listItem.textContent = item.spaceTitle;
-    listItem.value = item.spaceTitle;
+    listItem.value = item.spaceID;
 
     spaceSelect.append(listItem);
   });
@@ -55,7 +64,7 @@ const spaceList = () => {
 
   const div = document.createElement("div");
   div.classList.add("class-list");
-  div.append(title, spaceSelect);
+  div.append(title, addSpaceBtn(), spaceSelect);
 
   return div;
 };

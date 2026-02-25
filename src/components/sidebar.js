@@ -5,7 +5,7 @@ import logoPNG from "../images/logo/logo.png";
 
 const sideBar = () => {
   const sideBarContainer = document.querySelector(".side-bar");
-  sideBarContainer.append(header(), addSpaceBtn(), spaceList());
+  sideBarContainer.append(header(), spaceList());
 };
 
 const header = () => {

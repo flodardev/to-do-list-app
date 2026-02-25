@@ -1,6 +1,6 @@
 import "./modal.css";
 import { format } from "date-fns";
-export { addItemModal, addCardModal };
+export { addItemModal, addCardModal, addSpaceModal };
 
 const addItemModal = () => {
   const dialog = document.createElement("dialog");
@@ -131,6 +131,55 @@ const addCardModal = () => {
   const cancelButton = document.createElement("button");
   cancelButton.type = "button";
   cancelButton.id = "closeBtn";
+  cancelButton.value = "cancel";
+  cancelButton.textContent = "Cancel";
+
+  divAction.append(saveButton, cancelButton);
+
+  form.append(h2, titleDiv, divAction);
+  dialog.append(form);
+
+  cancelButton.addEventListener("click", (event) => {
+    dialog.close();
+  });
+
+  return dialog;
+};
+
+const addSpaceModal = () => {
+  const dialog = document.createElement("dialog");
+  dialog.id = "add-space-dialog";
+
+  const form = document.createElement("form");
+  form.classList.add("form");
+
+  const h2 = document.createElement("h2");
+  h2.textContent = "New Space";
+
+  // title
+  const titleLabel = document.createElement("label");
+  titleLabel.textContent = "Title";
+  titleLabel.htmlFor = "title";
+  const titleInput = document.createElement("input");
+  titleInput.type = "text";
+  titleInput.id = "title";
+  titleInput.name = "title";
+  titleInput.placeholder = "Space name...";
+  titleInput.required = true;
+
+  const titleDiv = document.createElement("div");
+  titleDiv.append(titleLabel, titleInput);
+
+  const divAction = document.createElement("div");
+  divAction.classList.add("actions");
+  const saveButton = document.createElement("button");
+  saveButton.type = "submit";
+  saveButton.id = "saveSpaceBtn";
+  saveButton.textContent = "Save Space";
+
+  const cancelButton = document.createElement("button");
+  cancelButton.type = "button";
+  cancelButton.id = "closeSpaceBtn";
   cancelButton.value = "cancel";
   cancelButton.textContent = "Cancel";
 

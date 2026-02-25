@@ -1,4 +1,4 @@
-export { getCards, getSpace };
+export { getCards, getSpace, getUser };
 import { userSpaces } from "./data.js";
 
 const getCards = (spaceID, cardID) => {
@@ -13,4 +13,8 @@ const getSpace = (spaceID) => {
   const space = userSpaces.getSpace(spaceID);
 
   return space;
+};
+
+const getUser = () => {
+  return userSpaces;
 };

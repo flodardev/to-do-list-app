@@ -1,7 +1,7 @@
-import { getCards, getSpace } from "./getterFunctions.js";
-import { SpaceCardItem, SpaceCard } from "./spacesClasses.js";
+import { getCards, getSpace, getUser } from "./getterFunctions.js";
+import { Space, SpaceCardItem, SpaceCard } from "./spacesClasses.js";
 
-export { addItem, addCard };
+export { addItem, addCard, addSpace };
 
 const addCard = (spaceID) => {
   // Return a promise so the caller can "await" the user's action
@@ -58,6 +58,34 @@ const addItem = (spaceID, cardID) => {
         cards.addItem(obj);
 
         addModal.close();
+        event.target.reset(); // Clear form for next time
+
+        resolve(true); // <--- This tells the "await" that we are done!
+      },
+      { once: true },
+    );
+  });
+};
+
+const addSpace = () => {
+  return new Promise((resolve) => {
+    const addSpaceModal = document.querySelector("#add-space-dialog");
+    const addSpaceForm = addSpaceModal.firstElementChild;
+    addSpaceModal.showModal();
+
+    addSpaceForm.addEventListener(
+      "submit",
+      (event) => {
+        event.preventDefault();
+
+        const data = Object.fromEntries(new FormData(event.target));
+        const user = getUser();
+        const newSpace = new Space(data.title);
+        user.addSpace(newSpace);
+
+        console.log(user);
+
+        addSpaceModal.close();
         event.target.reset(); // Clear form for next time
 
         resolve(true); // <--- This tells the "await" that we are done!
