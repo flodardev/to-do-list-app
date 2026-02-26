@@ -16,7 +16,7 @@ const spaces = () => {
 const addSpaceBtn = () => {
   const addSpaceBtn = document.createElement("button");
   addSpaceBtn.id = "add-space-btn";
-  addSpaceBtn.textContent = "Add Space";
+  addSpaceBtn.textContent = "➕ Space";
   addSpaceBtn.addEventListener("click", async () => {
     // add a new space
     await addSpace();

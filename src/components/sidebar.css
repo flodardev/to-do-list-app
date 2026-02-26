@@ -3,8 +3,9 @@
 }
 
 .side-bar {
-  background-color: var(--sidebar-bg-color);
+  background-color: #8ce4ff;
   box-shadow: 3px 0 6px rgba(0, 0, 0, 0.2);
+  border-right: 3px solid black;
   display: grid;
   justify-items: center;
   align-items: center;
@@ -31,7 +32,8 @@
 }
 
 .class-list {
-  border: 1px solid black;
+  border: 1px solid grey;
+  border-radius: 5px;
   place-self: start;
   justify-self: center;
   grid-row: 2/3;
@@ -39,4 +41,5 @@
   display: grid;
   gap: 0.5rem;
   padding: 0.5rem;
+  margin-top: 1rem;
 }

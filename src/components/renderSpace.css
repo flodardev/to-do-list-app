@@ -1,23 +1,35 @@
 .space {
   height: 100%;
-  background-color: bisque;
   display: grid;
   grid-template-rows: max-content 1fr;
   .title-space {
+    border-radius: 10px;
+    padding: 0.5rem;
+    background-color: #8ce4ff;
     margin-left: 1rem;
     display: flex;
     gap: 1rem;
+    border-bottom: 5px solid black;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      margin-top: 6px;
+    }
   }
 }
 
 .cards-container {
+  margin-top: 1rem;
   display: grid;
   grid-column: 1/3;
   grid-row: 2/3;
-  grid-auto-columns: minmax(250px, 1fr);
+  grid-auto-columns: minmax(max-content, max-content);
   grid-auto-flow: column;
   overflow-x: auto;
-  height: 85%; /* Must have a constrained height */
+  height: 100%; /* Must have a constrained height */
   /* Hide scrollbar for Firefox */
   scrollbar-width: none;
   /* Hide scrollbar for IE and Edge */
@@ -29,10 +41,15 @@
 }
 
 .card {
-  background-color: brown;
-  border: 1px solid black;
+  /* x-offset, y-offset, blur, spread, color */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-left: 5px solid black;
+
+  background-color: #fcf8f8;
+  border-radius: 5px;
   margin-left: 1rem;
   height: 85dvh;
+  padding: 1rem;
 
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -44,7 +61,7 @@
     gap: 0.5rem;
 
     button {
-      width: 70px;
+      width: 100px;
     }
   }
 }
@@ -54,13 +71,12 @@
   grid-row: 2/3;
   display: grid;
   grid-auto-rows: minmax(min-content, max-content);
-  height: 80%;
+  height: 100%;
   row-gap: 1rem;
   overflow-y: auto;
 
   /* Hide scrollbar for Firefox */
   scrollbar-width: none;
-  /* Hide scrollbar for IE and Edge */
   -ms-overflow-style: none;
 }
 
@@ -69,15 +85,68 @@
 }
 
 .todo-item {
-  background-color: aqua;
-  border: 1px solid black;
+  background-color: #dfdfdf;
+  border-bottom: 5px solid black;
+  border-radius: 5px;
+  padding: 1rem;
 
   display: flex;
   flex-flow: column;
+
+  transition: 0.3s;
   .item-buttons {
-    align-self: end;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 1rem;
+
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+
+    select {
+      padding: 0.2rem 0.1rem;
+      cursor: pointer;
+    }
+
     button {
       margin-right: 0.2rem;
     }
   }
+
+  p {
+    background-color: #cfcfcf;
+    padding: 0.1rem 0.5rem;
+    border-radius: 5px;
+
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+}
+
+.todo-item.expanded p {
+  max-height: 200px; /* Adjust based on content size */
+}
+
+.todo-item.expanded .item-buttons {
+  max-height: 200px; /* Adjust based on content size */
+}
+
+.change-prio-select {
+  border-radius: 5px;
+  width: 150px;
+  align-self: end;
+}
+
+.item-title-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-date-prio-div {
+  display: flex;
+  justify-content: space-between;
 }

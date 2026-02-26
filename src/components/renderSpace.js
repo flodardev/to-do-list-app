@@ -4,9 +4,13 @@ import { events } from "./events.js";
 export { renderSpace, updateCard, updateSpace };
 
 const renderItem = (itemObject) => {
+  const divItem = document.createElement("div");
+  divItem.classList.add("todo-item");
   const titleDiv = document.createElement("div");
   const titleItem = document.createElement("h3");
   titleItem.textContent = itemObject.title;
+
+  const statusDiv = document.createElement("div");
 
   const statusItem = document.createElement("span");
   if (itemObject.status) {
@@ -15,10 +19,15 @@ const renderItem = (itemObject) => {
     statusItem.textContent = "Incomplete";
   }
 
+  statusDiv.append(statusItem);
+
   titleDiv.append(titleItem, statusItem);
+  titleDiv.classList.add("item-title-div");
 
   const paraItem = document.createElement("p");
   paraItem.textContent = itemObject.description;
+
+  const datePrioDiv = document.createElement("div");
 
   const dateItem = document.createElement("span");
   dateItem.textContent = itemObject.dueDate;
@@ -26,11 +35,17 @@ const renderItem = (itemObject) => {
   const priorityItem = document.createElement("span");
   priorityItem.classList.add("priority");
 
+  datePrioDiv.classList.add("item-date-prio-div");
+
   if (itemObject.priority === 1) {
     priorityItem.textContent = "Priority Low";
+    divItem.style.backgroundColor = "#A1E3F9";
   } else if (itemObject.priority === 2) {
     priorityItem.textContent = "Priority Medium";
+    divItem.style.backgroundColor = "#578FCA";
   } else if (itemObject.priority === 3) {
+    divItem.style.backgroundColor = "#3674B5";
+
     priorityItem.textContent = "Priority High";
   }
 
@@ -39,45 +54,66 @@ const renderItem = (itemObject) => {
   buttons.classList.add("item-buttons");
   buttons.dataset.itemId = itemObject.itemID;
 
-  const markCompleteBtn = document.createElement("button");
-  markCompleteBtn.classList.add("mark-complete-btn");
-  markCompleteBtn.textContent = "Done";
-
   const changePrio = document.createElement("select");
   changePrio.name = "priority";
   changePrio.classList.add("change-prio-select");
+
   [0, 1, 2, 3].forEach((item) => {
     const option = document.createElement("option");
     option.value = item;
     switch (item) {
       case 0:
-        option.textContent = "Change priority";
+        option.textContent = "Priority";
         break;
 
       case 1:
-        option.textContent = "Low";
+        if (itemObject.priority === 1) {
+          option.selected = true;
+        }
+        option.textContent = "Priority Low";
         break;
 
       case 2:
-        option.textContent = "Medium";
+        if (itemObject.priority === 2) {
+          option.selected = true;
+        }
+        option.textContent = "Priority Medium";
         break;
 
       case 3:
-        option.textContent = "High";
+        if (itemObject.priority === 3) {
+          option.selected = true;
+        }
+        option.textContent = "Priority High";
         break;
     }
     changePrio.append(option);
   });
 
+  const markCompleteBtn = document.createElement("button");
+  markCompleteBtn.classList.add("mark-complete-btn");
+  if (itemObject.status) {
+    markCompleteBtn.textContent = "Mark Incomplete";
+  } else {
+    markCompleteBtn.textContent = "Mark Complete";
+  }
+
   const deleteBtn = document.createElement("button");
   deleteBtn.classList.add("item-remove");
-  deleteBtn.textContent = "Remove";
+  deleteBtn.textContent = "🗑️ Task";
 
-  buttons.append(markCompleteBtn, changePrio, deleteBtn);
+  const buttondiv = document.createElement("div");
+  buttondiv.append(markCompleteBtn, deleteBtn);
 
-  const divItem = document.createElement("div");
-  divItem.classList.add("todo-item");
-  divItem.append(titleDiv, paraItem, dateItem, priorityItem, buttons);
+  buttons.append(changePrio, buttondiv);
+
+  datePrioDiv.append(dateItem);
+
+  divItem.append(titleDiv, datePrioDiv, buttons, paraItem);
+
+  divItem.addEventListener("click", (event) => {
+    divItem.classList.toggle("expanded");
+  });
 
   return divItem;
 };
@@ -98,12 +134,12 @@ const renderCard = (cardObject) => {
   // add to-do item button
   const addButton = document.createElement("button");
   addButton.classList.add("item-add");
-  addButton.textContent = "Add Task";
+  addButton.textContent = "➕ Task";
 
   // delete card button
   const delCardBtn = document.createElement("button");
   delCardBtn.classList.add("card-del");
-  delCardBtn.textContent = "Del Card";
+  delCardBtn.textContent = "🗑️ Card";
 
   const buttons = document.createElement("div");
   buttons.classList.add("card-btn-container");
@@ -137,7 +173,7 @@ const renderSpace = (spaceObject) => {
 
   const addCardButton = document.createElement("button");
   addCardButton.classList.add("card-add");
-  addCardButton.textContent = "Add Card";
+  addCardButton.textContent = "➕ Card";
 
   titleDiv.append(titleSpace, addCardButton);
 
