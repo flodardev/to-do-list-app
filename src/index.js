@@ -10,9 +10,13 @@ import {
   addSpaceModal,
 } from "./components/modal.js";
 
+import { getLocalStorage } from "./components/webStorageAPI.js";
+
 const mainContainer = document.querySelector(".main");
 
 // Default page
 mainContainer.append(home(), addItemModal(), addCardModal(), addSpaceModal());
 sideBar();
 events();
+
+getLocalStorage();

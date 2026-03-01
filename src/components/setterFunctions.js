@@ -1,16 +1,26 @@
 export { setStatus, setPriority };
-import { getCards } from "./getterFunctions.js";
+import { getUser } from "./getterFunctions.js";
+import { setLocalStorage } from "./webStorageAPI.js";
 
 const setStatus = (spaceID, cardID, itemID) => {
-  const card = getCards(spaceID, cardID);
-  const item = card.getItem(itemID);
+  const userSpaces = getUser();
+  const space = userSpaces.getSpace(spaceID);
+  const cards = space.getCard(cardID);
+  const item = cards.getItem(itemID);
   item.changeStatus();
+
+  // update localStorage
+  setLocalStorage(userSpaces);
 };
 
 const setPriority = (spaceID, cardID, itemID, value) => {
-  const card = getCards(spaceID, cardID);
-  const item = card.getItem(itemID);
-  console.log(item);
+  const userSpaces = getUser();
+  const space = userSpaces.getSpace(spaceID);
+  const cards = space.getCard(cardID);
+  const item = cards.getItem(itemID);
   item.changePriority(value);
-  card.sortItems(true);
+  cards.sortItems(true);
+
+  // update localStorage
+  setLocalStorage(userSpaces);
 };

@@ -64,7 +64,14 @@ const addItemModal = () => {
   prioSelect.name = "priority";
   ["low", "medium", "high"].forEach((item) => {
     const option = document.createElement("option");
-    option.value = item;
+    if (item === "low") {
+      option.value = 1;
+    } else if (item === "medium") {
+      option.value = 2;
+    } else if (item === "high") {
+      option.value = 3;
+    }
+
     option.textContent = item.charAt(0).toUpperCase() + item.slice(1);
     prioSelect.append(option);
   });

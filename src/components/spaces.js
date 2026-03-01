@@ -48,7 +48,7 @@ const spaceSelections = () => {
 
 const spaceList = () => {
   const spaceSelect = spaceSelections();
-  const spaces = userSpaces;
+  const spaces = getUser();
   // for each space create a list item
   spaces.spacesArray.forEach((item) => {
     const listItem = document.createElement("option");

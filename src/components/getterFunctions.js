@@ -1,7 +1,10 @@
 export { getCards, getSpace, getUser };
-import { userSpaces } from "./data.js";
+import { getLocalStorage } from "./webStorageAPI.js";
 
 const getCards = (spaceID, cardID) => {
+  // from localStorage
+  const userSpaces = getLocalStorage();
+
   const space = userSpaces.getSpace(spaceID);
 
   const card = space.getCard(cardID);
@@ -10,11 +13,16 @@ const getCards = (spaceID, cardID) => {
 };
 
 const getSpace = (spaceID) => {
+  // from localStorage
+  const userSpaces = getLocalStorage();
+
   const space = userSpaces.getSpace(spaceID);
 
   return space;
 };
 
 const getUser = () => {
+  const userSpaces = getLocalStorage();
+
   return userSpaces;
 };

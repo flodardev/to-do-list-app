@@ -1,12 +1,14 @@
 import { getCards, getSpace, getUser } from "./getterFunctions.js";
 import { Space, SpaceCardItem, SpaceCard } from "./spacesClasses.js";
+import { setLocalStorage } from "./webStorageAPI.js";
 
 export { addItem, addCard, addSpace };
 
 const addCard = (spaceID) => {
   // Return a promise so the caller can "await" the user's action
   return new Promise((resolve) => {
-    const space = getSpace(spaceID);
+    const userSpaces = getUser();
+    const space = userSpaces.getSpace(spaceID);
     const addModal = document.querySelector("#add-card-dialog");
     const addCardForm = addModal.firstElementChild;
 
@@ -22,6 +24,9 @@ const addCard = (spaceID) => {
         const obj = new SpaceCard(data.title);
         space.addCard(obj);
 
+        // update localStorage
+        setLocalStorage(userSpaces);
+
         addModal.close();
         event.target.reset(); // Clear form for next time
 
@@ -35,7 +40,9 @@ const addCard = (spaceID) => {
 const addItem = (spaceID, cardID) => {
   // Return a promise so the caller can "await" the user's action
   return new Promise((resolve) => {
-    const cards = getCards(spaceID, cardID);
+    const userSpaces = getUser();
+    const space = userSpaces.getSpace(spaceID);
+    const cards = space.getCard(cardID);
     const addModal = document.querySelector("#add-item-dialog");
     const addItemForm = addModal.firstElementChild;
 
@@ -55,7 +62,12 @@ const addItem = (spaceID, cardID) => {
           data.priority,
         );
 
+        console.log(obj);
+
         cards.addItem(obj);
+
+        // update localStorage
+        setLocalStorage(userSpaces);
 
         addModal.close();
         event.target.reset(); // Clear form for next time
@@ -82,6 +94,9 @@ const addSpace = () => {
         const user = getUser();
         const newSpace = new Space(data.title);
         user.addSpace(newSpace);
+
+        // add to localStorage
+        setLocalStorage(user);
 
         console.log(user);
 

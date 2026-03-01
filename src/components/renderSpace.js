@@ -37,13 +37,13 @@ const renderItem = (itemObject) => {
 
   datePrioDiv.classList.add("item-date-prio-div");
 
-  if (itemObject.priority === 1) {
+  if (+itemObject.priority === 1) {
     priorityItem.textContent = "Priority Low";
     divItem.style.backgroundColor = "#A1E3F9";
-  } else if (itemObject.priority === 2) {
+  } else if (+itemObject.priority === 2) {
     priorityItem.textContent = "Priority Medium";
     divItem.style.backgroundColor = "#578FCA";
-  } else if (itemObject.priority === 3) {
+  } else if (+itemObject.priority === 3) {
     divItem.style.backgroundColor = "#3674B5";
 
     priorityItem.textContent = "Priority High";
@@ -67,21 +67,21 @@ const renderItem = (itemObject) => {
         break;
 
       case 1:
-        if (itemObject.priority === 1) {
+        if (+itemObject.priority === 1) {
           option.selected = true;
         }
         option.textContent = "Priority Low";
         break;
 
       case 2:
-        if (itemObject.priority === 2) {
+        if (+itemObject.priority === 2) {
           option.selected = true;
         }
         option.textContent = "Priority Medium";
         break;
 
       case 3:
-        if (itemObject.priority === 3) {
+        if (+itemObject.priority === 3) {
           option.selected = true;
         }
         option.textContent = "Priority High";
@@ -169,6 +169,7 @@ const renderSpace = (spaceObject) => {
   const titleDiv = document.createElement("div");
   titleDiv.classList.add("title-space");
   const titleSpace = document.createElement("h1");
+
   titleSpace.textContent = spaceObject.spaceTitle;
 
   const addCardButton = document.createElement("button");

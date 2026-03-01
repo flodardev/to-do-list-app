@@ -7,21 +7,27 @@ class Spaces {
     this.spacesID = crypto.randomUUID();
   }
 
-  getSpace = (spaceID) => {
-    const index = this.findSpaceIndex(spaceID);
-
-    if (index !== -1) {
-      return this.spacesArray[index];
+  static hydrate(obj) {
+    const instance = new Spaces(obj.spacesTitle);
+    Object.assign(instance, obj);
+    if (obj.spacesArray) {
+      instance.spacesArray = obj.spacesArray.map((s) => Space.hydrate(s));
     }
-  };
+    return instance;
+  }
 
-  addSpace = (space) => {
+  getSpace(spaceID) {
+    const index = this.findSpaceIndex(spaceID);
+    return index !== -1 ? this.spacesArray[index] : undefined;
+  }
+
+  addSpace(space) {
     this.spacesArray.push(space);
-  };
+  }
 
-  findSpaceIndex = (spaceID) => {
+  findSpaceIndex(spaceID) {
     return this.spacesArray.findIndex((item) => item.spaceID === spaceID);
-  };
+  }
 }
 
 class Space {
@@ -31,33 +37,36 @@ class Space {
     this.spaceID = crypto.randomUUID();
   }
 
-  getCard = (cardID) => {
-    const index = this.findCardIndex(cardID);
-    if (index !== -1) {
-      const card = this.cardArray[index];
-      return card;
-    } else {
-      return false;
+  static hydrate(obj) {
+    const instance = new Space(obj.spaceTitle);
+    Object.assign(instance, obj);
+    if (obj.cardArray) {
+      instance.cardArray = obj.cardArray.map((c) => SpaceCard.hydrate(c));
     }
-  };
+    return instance;
+  }
 
-  addCard = (card) => {
+  getCard(cardID) {
+    const index = this.findCardIndex(cardID);
+    return index !== -1 ? this.cardArray[index] : false;
+  }
+
+  addCard(card) {
     this.cardArray.push(card);
-  };
+  }
 
-  removeCard = (cardID) => {
+  removeCard(cardID) {
     const index = this.findCardIndex(cardID);
     if (index !== -1) {
       this.cardArray.splice(index, 1);
       return true;
-    } else {
-      return false;
     }
-  };
+    return false;
+  }
 
-  findCardIndex = (cardID) => {
+  findCardIndex(cardID) {
     return this.cardArray.findIndex((item) => item.cardID === cardID);
-  };
+  }
 }
 
 class SpaceCard {
@@ -67,45 +76,43 @@ class SpaceCard {
     this.cardID = crypto.randomUUID();
   }
 
-  getItem = (itemID) => {
-    const index = this.findItemIndex(itemID);
-    if (index !== -1) {
-      const item = this.itemArray[index];
-      // success return true
-      return item;
-    } else {
-      // fail return false // error
-      return false;
+  static hydrate(obj) {
+    const instance = new SpaceCard(obj.cardTitle);
+    Object.assign(instance, obj);
+    if (obj.itemArray) {
+      instance.itemArray = obj.itemArray.map((i) => SpaceCardItem.hydrate(i));
     }
-  };
+    return instance;
+  }
 
-  addItem = (item) => {
+  getItem(itemID) {
+    const index = this.findItemIndex(itemID);
+    return index !== -1 ? this.itemArray[index] : false;
+  }
+
+  addItem(item) {
     this.itemArray.push(item);
     this.sortItems(true);
-  };
+  }
 
-  removeItem = (itemID) => {
+  removeItem(itemID) {
     const index = this.findItemIndex(itemID);
     if (index !== -1) {
       this.itemArray.splice(index, 1);
-      // success return true
       return true;
-    } else {
-      // fail return false // error
-      return false;
     }
-  };
+    return false;
+  }
 
-  findItemIndex = (itemID) => {
+  findItemIndex(itemID) {
     return this.itemArray.findIndex((item) => item.itemID === itemID);
-  };
+  }
 
-  // Sort logic: (b - a) results in 3, 2, 1 order
-  sortItems = (highToLow = true) => {
+  sortItems(highToLow = true) {
     this.itemArray.sort((a, b) =>
       highToLow ? b.priority - a.priority : a.priority - b.priority,
     );
-  };
+  }
 }
 
 class SpaceCardItem {
@@ -113,20 +120,31 @@ class SpaceCardItem {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
-    this.priority = priority; // 1 = low, 2 = medium, 3 = high
+    this.priority = priority;
     this.itemID = crypto.randomUUID();
-    this.status = false; // task complete or incomplete
+    this.status = false;
   }
 
-  changeStatus = () => {
-    this.status = !this.status;
-  };
+  static hydrate(obj) {
+    const instance = new SpaceCardItem(
+      obj.title,
+      obj.description,
+      obj.dueDate,
+      obj.priority,
+    );
+    Object.assign(instance, obj);
+    return instance;
+  }
 
-  changePriority = (value) => {
+  changeStatus() {
+    this.status = !this.status;
+  }
+
+  changePriority(value) {
     if (value >= 1 && value <= 3) {
       this.priority = +value;
     } else {
       console.error("Error in changing priority");
     }
-  };
+  }
 }
