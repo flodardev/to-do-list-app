@@ -1,4 +1,3 @@
-import { userSpaces } from "./data.js";
 import { addSpace } from "./addFunctions.js";
 import { renderSpace } from "./renderSpace.js";
 import { getUser } from "./getterFunctions.js";
